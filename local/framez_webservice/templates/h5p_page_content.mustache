@@ -1,0 +1,336 @@
+<div class="framez-page-content">
+    <!-- Markdown Summary Section -->
+    <div class="framez-markdown-section">
+        <div class="framez-markdown-content">
+            {{{markdown_content}}}
+        </div>
+        
+        {{#has_metadata}}
+        <div class="framez-metadata-section">
+            {{#has_author}}
+            <div class="framez-meta-info">
+                <span class="framez-author">
+                    <strong>{{#str}}author, local_framez_webservice{{/str}}:</strong> {{author}}
+                </span>
+            </div>
+            {{/has_author}}
+            
+            {{#has_subject}}
+            <div class="framez-meta-info">
+                <span class="framez-subject">
+                    <strong>{{#str}}subject, local_framez_webservice{{/str}}:</strong> {{subject}}
+                </span>
+            </div>
+            {{/has_subject}}
+            
+            {{#has_level}}
+            <div class="framez-meta-info">
+                <span class="framez-level">
+                    <strong>{{#str}}level, local_framez_webservice{{/str}}:</strong> {{level}}
+                </span>
+            </div>
+            {{/has_level}}
+            
+            {{#has_tags}}
+            <div class="framez-tags">
+                <strong>{{#str}}tags, local_framez_webservice{{/str}}:</strong>
+                {{#tags}}
+                <span class="framez-tag">{{name}}</span>
+                {{/tags}}
+            </div>
+            {{/has_tags}}
+            
+            {{#created_date}}
+            <div class="framez-dates">
+                <small class="framez-created-date">
+                    {{#str}}created, local_framez_webservice{{/str}}: {{created_date}}
+                </small>
+                {{#last_modified}}
+                <small class="framez-modified-date">
+                    {{#str}}lastmodified, local_framez_webservice{{/str}}: {{last_modified}}
+                </small>
+                {{/last_modified}}
+            </div>
+            {{/created_date}}
+        </div>
+        {{/has_metadata}}
+    </div>
+
+    <!-- H5P Dialog Cards Section -->
+    {{#has_h5p_content}}
+    <div class="framez-h5p-section">
+        <h2 class="framez-section-title">{{#str}}cuecards, local_framez_webservice{{/str}}</h2>
+        <div class="framez-h5p-container-wrapper">
+            {{{h5p_content}}}
+        </div>
+    </div>
+    {{/has_h5p_content}}
+</div>
+
+<style>
+.framez-page-content {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+}
+
+.framez-markdown-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.framez-markdown-content {
+    color: #495057;
+    font-size: 1.1em;
+}
+
+/* Markdown-specific styling */
+.markdown-header {
+    color: #2c3e50;
+    margin: 20px 0 15px 0;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.markdown-h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.markdown-h2 {
+    font-size: 1.8em;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 8px;
+}
+
+.markdown-h3 {
+    font-size: 1.5em;
+}
+
+.markdown-h4 {
+    font-size: 1.3em;
+}
+
+.markdown-h5 {
+    font-size: 1.1em;
+}
+
+.markdown-h6 {
+    font-size: 1em;
+    color: #6c757d;
+}
+
+.markdown-paragraph {
+    margin: 15px 0;
+    text-align: justify;
+}
+
+.markdown-list {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.markdown-list-item {
+    margin: 8px 0;
+}
+
+.markdown-ul {
+    list-style-type: disc;
+}
+
+.markdown-ol {
+    list-style-type: decimal;
+}
+
+.markdown-bold {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.markdown-italic {
+    font-style: italic;
+    color: #495057;
+}
+
+.markdown-strikethrough {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.markdown-link {
+    color: #007bff;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.3s ease;
+}
+
+.markdown-link:hover {
+    border-bottom-color: #007bff;
+    text-decoration: none;
+}
+
+.markdown-code-block {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+    overflow-x: auto;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.markdown-inline-code {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+    color: #e83e8c;
+}
+
+.markdown-blockquote {
+    border-left: 4px solid #007bff;
+    background: #f8f9fa;
+    margin: 20px 0;
+    padding: 15px 20px;
+    border-radius: 0 6px 6px 0;
+}
+
+.markdown-quote-text {
+    margin: 0;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.markdown-hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #e9ecef, transparent);
+    margin: 30px 0;
+}
+
+/* Metadata section styling */
+.framez-metadata-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.framez-meta-info {
+    margin-bottom: 10px;
+    color: #6c757d;
+}
+
+.framez-tags {
+    margin-top: 15px;
+}
+
+.framez-tag {
+    display: inline-block;
+    background: #e9ecef;
+    color: #495057;
+    padding: 4px 8px;
+    margin: 2px 4px 2px 0;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.framez-dates {
+    margin-top: 15px;
+    color: #6c757d;
+}
+
+.framez-dates small {
+    display: block;
+    margin: 2px 0;
+}
+
+/* H5P Section styling */
+.framez-h5p-section {
+    margin-top: 40px;
+}
+
+.framez-section-title {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.framez-h5p-container-wrapper {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.framez-h5p-container {
+    width: 100%;
+    min-height: 400px;
+    position: relative;
+}
+
+.framez-h5p-container iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+    border-radius: 8px;
+}
+
+.framez-h5p-error {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #f5c6cb;
+    margin: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .framez-h5p-container iframe {
+        height: 400px;
+    }
+    
+    .framez-page-content {
+        padding: 15px;
+    }
+    
+    .markdown-h1 {
+        font-size: 1.8em;
+    }
+    
+    .markdown-h2 {
+        font-size: 1.5em;
+    }
+    
+    .framez-h5p-container-wrapper {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .framez-h5p-container iframe {
+        height: 350px;
+    }
+    
+    .framez-h5p-container-wrapper {
+        padding: 10px;
+    }
+    
+    .markdown-code-block {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+}
+</style>

@@ -1,0 +1,71 @@
+diff --git a/mod/lti/auth.php b/mod/lti/auth.php
+index 0a55f428a0d..22397ddb78c 100644
+--- a/mod/lti/auth.php
++++ b/mod/lti/auth.php
+@@ -120,9 +120,10 @@ if ($ok) {
+         $context = context_module::instance($cm->id);
+         require_login($course, true, $cm);
+         require_capability('mod/lti:view', $context);
++        $text = base64_decode($textb64);
+         $lti = $DB->get_record('lti', array('id' => $cm->instance), '*', MUST_EXIST);
+         $lti->cmid = $cm->id;
+-        list($endpoint, $params) = lti_get_launch_data($lti, $nonce, $messagetype, $foruserid);
++        list($endpoint, $params) = lti_get_launch_data($lti, $nonce, $messagetype, $foruserid, $text);
+     } else {
+         require_login($course);
+         $context = context_course::instance($courseid);
+diff --git a/mod/lti/launch.php b/mod/lti/launch.php
+index db3b97f61e5..3c7a50ae585 100644
+--- a/mod/lti/launch.php
++++ b/mod/lti/launch.php
+@@ -73,7 +73,7 @@ if ($typeid) {
+                 if ($action === 'gradeReport') {
+                     $msgtype = 'LtiSubmissionReviewRequest';
+                 }
+-                echo lti_initiate_login($cm->course, $cmid, $lti, $config, $msgtype, '', '', $foruserid);
++                echo lti_initiate_login($cm->course, $cmid, $lti, $config, $msgtype, '', $action, $foruserid);
+                 exit;
+             } else {
+                 unset($SESSION->lti_initiatelogin_status);
+diff --git a/mod/lti/locallib.php b/mod/lti/locallib.php
+index 84c379e7d88..d7f30a4dd78 100644
+--- a/mod/lti/locallib.php
++++ b/mod/lti/locallib.php
+@@ -478,7 +478,7 @@ function lti_get_instance_type(object $instance): ?object {
+  * @return array the endpoint URL and parameters (including the signature)
+  * @since  Moodle 3.0
+  */
+-function lti_get_launch_data($instance, $nonce = '', $messagetype = 'basic-lti-launch-request', $foruserid = 0) {
++function lti_get_launch_data($instance, $nonce = '', $messagetype = 'basic-lti-launch-request', $foruserid = 0, $action='') {
+     global $PAGE, $USER;
+     $messagetype = $messagetype ? $messagetype : 'basic-lti-launch-request';
+     $tool = lti_get_instance_type($instance);
+@@ -503,6 +503,7 @@ function lti_get_launch_data($instance, $nonce = '', $messagetype = 'basic-lti-l
+         $typeconfig['allowroster'] = $instance->instructorchoiceallowroster;
+         $typeconfig['forcessl'] = '0';
+     }
++    $typeconfig['customparameters']=$action;
+ 
+     if (isset($tool->toolproxyid)) {
+         $toolproxy = lti_get_tool_proxy($tool->toolproxyid);
+@@ -664,9 +665,9 @@ function lti_get_launch_data($instance, $nonce = '', $messagetype = 'basic-lti-l
+  * @param int $foruserid for user param, optional
+  * @return string The HTML code containing the javascript code for the launch
+  */
+-function lti_launch_tool($instance, $foruserid=0) {
++function lti_launch_tool($instance, $foruserid=0, $action='') {
+ 
+-    list($endpoint, $parms) = lti_get_launch_data($instance, '', '', $foruserid);
++    list($endpoint, $parms) = lti_get_launch_data($instance, '', '', $foruserid, $action);
+     $debuglaunch = ( $instance->debuglaunch == 1 );
+ 
+     $content = lti_post_launch_html($parms, $endpoint, $debuglaunch);
+@@ -3638,7 +3639,7 @@ function lti_build_login_request($courseid, $cmid, $instance, $config, $messaget
+         $endpoint = !empty($instance->toolurl) ? $instance->toolurl : $config->lti_toolurl;
+         $launchid = 'ltilaunch'.$instance->id.'_'.rand();
+         $ltihint['cmid'] = $cmid;
+-        $SESSION->$launchid = "{$courseid},{$config->typeid},{$cmid},{$messagetype},{$foruserid},,";
++        $SESSION->$launchid = "{$courseid},{$config->typeid},{$cmid},{$messagetype},{$foruserid},," . base64_encode($text);
+     } else {
+         $endpoint = $config->lti_toolurl;
+         if (($messagetype === 'ContentItemSelectionRequest') && !empty($config->lti_toolurl_ContentItemSelectionRequest)) {

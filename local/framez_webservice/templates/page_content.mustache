@@ -1,0 +1,491 @@
+<div class="framez-page-content">
+    <!-- Markdown Summary Section -->
+    <div class="framez-markdown-section">
+        <div class="framez-markdown-content">
+            {{{markdown_content}}}
+        </div>
+        
+        {{#has_metadata}}
+        <div class="framez-metadata-section">
+            {{#has_author}}
+            <div class="framez-meta-info">
+                <span class="framez-author">
+                    <strong>{{#str}}author, local_framez_webservice{{/str}}:</strong> {{author}}
+                </span>
+            </div>
+            {{/has_author}}
+            
+            {{#has_subject}}
+            <div class="framez-meta-info">
+                <span class="framez-subject">
+                    <strong>{{#str}}subject, local_framez_webservice{{/str}}:</strong> {{subject}}
+                </span>
+            </div>
+            {{/has_subject}}
+            
+            {{#has_level}}
+            <div class="framez-meta-info">
+                <span class="framez-level">
+                    <strong>{{#str}}level, local_framez_webservice{{/str}}:</strong> {{level}}
+                </span>
+            </div>
+            {{/has_level}}
+            
+            {{#has_tags}}
+            <div class="framez-tags">
+                <strong>{{#str}}tags, local_framez_webservice{{/str}}:</strong>
+                {{#tags}}
+                <span class="framez-tag">{{name}}</span>
+                {{/tags}}
+            </div>
+            {{/has_tags}}
+            
+            {{#created_date}}
+            <div class="framez-dates">
+                <small class="framez-created-date">
+                    {{#str}}created, local_framez_webservice{{/str}}: {{created_date}}
+                </small>
+                {{#last_modified}}
+                <small class="framez-modified-date">
+                    {{#str}}lastmodified, local_framez_webservice{{/str}}: {{last_modified}}
+                </small>
+                {{/last_modified}}
+            </div>
+            {{/created_date}}
+        </div>
+        {{/has_metadata}}
+    </div>
+
+    <!-- Cue Cards Section -->
+    {{#has_cue_cards}}
+    <div class="framez-cue-cards-section">
+        <h2 class="framez-section-title">{{#str}}cuecards, local_framez_webservice{{/str}}</h2>
+        <div class="framez-cue-cards-grid">
+            {{#cuecards}}
+            <div class="framez-cue-card {{difficulty_class}}" data-card-id="{{id}}">
+                <div class="framez-card-inner">
+                    <div class="framez-card-front">
+                        <div class="framez-card-content">
+                            <div class="framez-card-text">{{{front}}}</div>
+                            {{#has_category}}
+                            <div class="framez-card-category">{{category}}</div>
+                            {{/has_category}}
+                            {{#has_tags}}
+                            <div class="framez-card-tags">
+                                {{#tags}}
+                                <span class="framez-card-tag">{{name}}</span>
+                                {{/tags}}
+                            </div>
+                            {{/has_tags}}
+                        </div>
+                        <div class="framez-card-flip-hint">
+                            <small>{{#str}}clicktoflip, local_framez_webservice{{/str}}</small>
+                        </div>
+                    </div>
+                    <div class="framez-card-back">
+                        <div class="framez-card-content">
+                            <div class="framez-card-text">{{{back}}}</div>
+                            <div class="framez-card-difficulty">
+                                <span class="framez-difficulty-badge {{difficulty_class}}">{{difficulty}}</span>
+                            </div>
+                        </div>
+                        <div class="framez-card-flip-hint">
+                            <small>{{#str}}clicktoflip, local_framez_webservice{{/str}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/cuecards}}
+        </div>
+    </div>
+    {{/has_cue_cards}}
+</div>
+
+<style>
+.framez-page-content {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.framez-markdown-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.framez-markdown-content {
+    color: #495057;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* Markdown-specific styling */
+.markdown-header {
+    color: #2c3e50;
+    margin: 20px 0 15px 0;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.markdown-h1 {
+    font-size: 2.2em;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.markdown-h2 {
+    font-size: 1.8em;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 8px;
+}
+
+.markdown-h3 {
+    font-size: 1.5em;
+}
+
+.markdown-h4 {
+    font-size: 1.3em;
+}
+
+.markdown-h5 {
+    font-size: 1.1em;
+}
+
+.markdown-h6 {
+    font-size: 1em;
+    color: #6c757d;
+}
+
+.markdown-paragraph {
+    margin: 15px 0;
+    text-align: justify;
+}
+
+.markdown-list {
+    margin: 15px 0;
+    padding-left: 25px;
+}
+
+.markdown-list-item {
+    margin: 8px 0;
+}
+
+.markdown-ul {
+    list-style-type: disc;
+}
+
+.markdown-ol {
+    list-style-type: decimal;
+}
+
+.markdown-bold {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.markdown-italic {
+    font-style: italic;
+    color: #495057;
+}
+
+.markdown-strikethrough {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.markdown-link {
+    color: #007bff;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom-color 0.3s ease;
+}
+
+.markdown-link:hover {
+    border-bottom-color: #007bff;
+    text-decoration: none;
+}
+
+.markdown-code-block {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+    overflow-x: auto;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.markdown-inline-code {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 3px;
+    padding: 2px 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9em;
+    color: #e83e8c;
+}
+
+.markdown-blockquote {
+    border-left: 4px solid #007bff;
+    background: #f8f9fa;
+    margin: 20px 0;
+    padding: 15px 20px;
+    border-radius: 0 6px 6px 0;
+}
+
+.markdown-quote-text {
+    margin: 0;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.markdown-hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #e9ecef, transparent);
+    margin: 30px 0;
+}
+
+/* Metadata section styling */
+.framez-metadata-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+}
+
+.framez-meta-info {
+    margin-bottom: 10px;
+    color: #6c757d;
+}
+
+.framez-tags {
+    margin-top: 15px;
+}
+
+.framez-tag {
+    display: inline-block;
+    background: #e9ecef;
+    color: #495057;
+    padding: 4px 8px;
+    margin: 2px 4px 2px 0;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.framez-dates {
+    margin-top: 15px;
+    color: #6c757d;
+}
+
+.framez-dates small {
+    display: block;
+    margin: 2px 0;
+}
+
+.framez-cue-cards-section {
+    margin-top: 40px;
+}
+
+.framez-section-title {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.framez-cue-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.framez-cue-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    height: 200px;
+    perspective: 1000px;
+}
+
+.framez-cue-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.framez-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.framez-cue-card.flipped .framez-card-inner {
+    transform: rotateY(180deg);
+}
+
+.framez-card-front,
+.framez-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.framez-card-front {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.framez-card-back {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.framez-card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.framez-card-text {
+    font-size: 1.1em;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.framez-card-category {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.framez-card-tags {
+    margin-top: 8px;
+}
+
+.framez-card-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    margin: 1px 2px;
+    border-radius: 8px;
+    font-size: 0.8em;
+}
+
+.framez-card-difficulty {
+    margin-top: 10px;
+}
+
+.framez-difficulty-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+.difficulty-easy {
+    background: #28a745;
+}
+
+.difficulty-medium {
+    background: #ffc107;
+    color: #212529;
+}
+
+.difficulty-hard {
+    background: #dc3545;
+}
+
+.framez-card-flip-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0.7;
+    font-size: 0.8em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .framez-cue-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .framez-cue-card {
+        height: 180px;
+    }
+    
+    .framez-page-content {
+        padding: 15px;
+    }
+    
+    .markdown-h1 {
+        font-size: 1.8em;
+    }
+    
+    .markdown-h2 {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .framez-cue-cards-grid {
+        gap: 10px;
+    }
+    
+    .framez-cue-card {
+        height: 160px;
+    }
+    
+    .framez-card-text {
+        font-size: 1em;
+    }
+    
+    .markdown-code-block {
+        font-size: 0.8em;
+        padding: 10px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click handlers for cue card flipping
+    const cueCards = document.querySelectorAll('.framez-cue-card');
+    cueCards.forEach(card => {
+        card.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+    });
+});
+</script>
+
+
+
+
