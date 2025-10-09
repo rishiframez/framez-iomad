@@ -287,7 +287,7 @@ class create_course_page extends external_api {
     private static function fetch_flashcards_from_api($namespace_id, $course_id, $jwt) {
         global $CFG;
         
-        $url = "https://{$CFG->framez_api_server}/api/v1/lti/course/{$course_id}/session/{$namespace_id}/flashcards";
+        $url = "https://{$CFG->framez_api_server}/api/v1/lti/session/{$namespace_id}/flashcards";
         
         $response = self::make_framez_api_call($url, $jwt);
         
@@ -310,7 +310,7 @@ class create_course_page extends external_api {
     private static function fetch_summary_from_api($namespace_id, $course_id, $jwt) {
         global $CFG;
         
-        $url = "https://{$CFG->framez_api_server}/api/v1/lti/course/{$course_id}/session/{$namespace_id}/summary";
+        $url = "https://{$CFG->framez_api_server}/api/v1/lti/session/{$namespace_id}/summary";
         
         $response = self::make_framez_api_call($url, $jwt);
         
@@ -675,6 +675,8 @@ class create_course_page extends external_api {
         
         // Add namespace_id metadata to the content for future lookups
         $pagecontent = "<!-- namespace_id:{$namespace_id} -->\n" . $pagecontent;
+        // Framez Magic GUID for framez generated content
+        $pagecontent = "<!-- e9f4b5a1-13c5-4278-824c-05a8ac066e07 -->\n" . $pagecontent;
         
         // Sanitize and truncate page title to fit DB column (typically 255 chars)
         $pagetitle = $namespace_name;

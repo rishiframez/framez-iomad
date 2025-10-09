@@ -25,7 +25,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_framez_webservice';
-$plugin->version = 2024120105;  // YYYYMMDDXX
+$plugin->version = 2024120106;  // YYYYMMDDXX
 $plugin->requires = 2022041900; // Moodle 4.0
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release = '1.0.0';
